@@ -135,8 +135,12 @@ export interface RelationshipsObject {
 	[k: string]: RelationshipObject;
 }
 
-export type AttributesObject<
-	ATTRS extends { [k: string]: JSON.Value } = { [k: string]: JSON.Value }
-> = { [K in keyof ATTRS]: ATTRS[K] };
+export type JsonAttributes = Record<string, JSON.Value>;
+
+export type Attributes = Partial<JsonAttributes>;
+
+export type AttributesObject<ATTRS extends Attributes = Attributes> = {
+	[K in keyof ATTRS]: ATTRS[K];
+};
 
 export type Errors = ErrorObject[];

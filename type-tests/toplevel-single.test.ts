@@ -2,8 +2,8 @@ import * as JSONAPI from '..';
 
 const d: JSONAPI.DocWithData<JSONAPI.ResourceObject> = {
 	data: {
-		type: 'foo'
-	}
+		type: 'foo',
+	},
 };
 
 const e: JSONAPI.SingleResourceDoc<'book'> = {
@@ -12,9 +12,9 @@ const e: JSONAPI.SingleResourceDoc<'book'> = {
 		attributes: {
 			foo: 'Great Expectations',
 			bar: 12,
-			baz: 'F. Scott Fitzgerald'
-		}
-	}
+			baz: 'F. Scott Fitzgerald',
+		},
+	},
 };
 
 const f: JSONAPI.SingleResourceDoc<
@@ -26,10 +26,32 @@ const f: JSONAPI.SingleResourceDoc<
 		attributes: {
 			title: 'Great Expectations',
 			chapters: 12,
-			author: 'F. Scott Fitzgerald'
-		}
-	}
+			author: 'F. Scott Fitzgerald',
+		},
+	},
 };
+
+interface OptionalAttributes extends JSONAPI.AttributesObject {
+	title: string;
+	author?: string;
+	chapters: number;
+}
+
+function optionalFunc(
+	optionalAttributes: OptionalAttributes
+): JSONAPI.SingleResourceDoc<'book', OptionalAttributes> {
+	return {
+		data: {
+			type: 'book',
+			attributes: {
+				title: optionalAttributes.title,
+				author: optionalAttributes.author,
+				chapters: optionalAttributes.chapters,
+			},
+		},
+	};
+}
+optionalFunc({ title: 'Great Expectations', chapters: 12 });
 
 const g = {
 	data: {
@@ -37,9 +59,9 @@ const g = {
 		attributes: {
 			title: 'Great Expectations',
 			chapters: '12',
-			author: 'F. Scott Fitzgerald'
-		}
-	}
+			author: 'F. Scott Fitzgerald',
+		},
+	},
 };
 function gFunc(
 	g: JSONAPI.SingleResourceDoc<
@@ -58,9 +80,9 @@ const h: JSONAPI.SingleResourceDoc<
 		attributes: {
 			foo: 'Great Expectations', // $ExpectError
 			bar: 12,
-			baz: 'F. Scott Fitzgerald'
-		}
-	}
+			baz: 'F. Scott Fitzgerald',
+		},
+	},
 };
 
 const i = {
@@ -69,9 +91,9 @@ const i = {
 		attributes: {
 			foo: 'Great Expectations',
 			bar: 12,
-			baz: 'F. Scott Fitzgerald'
-		}
-	}
+			baz: 'F. Scott Fitzgerald',
+		},
+	},
 };
 function iFunc(x: JSONAPI.SingleResourceDoc<'book'>) {}
 iFunc(i); // $ExpectError
