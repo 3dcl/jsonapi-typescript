@@ -40,11 +40,11 @@ export interface DocBase {
 export type Document = DocWithErrors | DocWithMeta | DocWithData;
 export type SingleResourceDoc<
 	T extends string = string,
-	A extends { [k: string]: JSON.Value } = { [k: string]: JSON.Value }
+	A extends Attributes = Attributes
 > = DocWithData<ResourceObject<T, A>>;
 export type CollectionResourceDoc<
 	T extends string = string,
-	A extends { [k: string]: JSON.Value } = { [k: string]: JSON.Value }
+	A extends Attributes = Attributes
 > = DocWithData<Array<ResourceObject<T, A>>>;
 
 // an object describing the server’s implementation
